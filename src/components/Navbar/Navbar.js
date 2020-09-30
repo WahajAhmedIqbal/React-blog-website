@@ -1,29 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
+
 function Navbar() {
+  const [search, setSearch] = useState(false);
+
+  const opensreach = () => {
+    setSearch(true);
+  };
+
+  const searchclass = search ? "searchinput active" : "searchinput";
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    setSearch(false);
+    alert("testing submit");
+  };
   return (
     <div className="navbar">
       <ul className="navbarManu">
         <li>
-          <a href="#">Home</a>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <a href="#">About Us</a>
+          <NavLink to="/about-us">About Us</NavLink>
         </li>
         <li>
-          <a href="#">Post</a>
+          <NavLink to="post">Post</NavLink>
         </li>
         <li>
-          <a href="#">Contact Us</a>
+          <NavLink to="contact-us">Contact Us</NavLink>
         </li>
       </ul>
       <div className="search">
-        <input type="text" placeholder="Search..." />
-        <img
-          style={{ padding: "0 4px" }}
-          src={require("../../assesst/logo.png")}
-          alt="Logo"
-        />
+        <form onSubmit={handlesubmit}>
+          <input className={searchclass} type="text" placeholder="Search..." />
+          <img
+            onClick={opensreach}
+            className="searchicon"
+            style={{ padding: "0 4px" }}
+            src={require("../../assesst/logo.png")}
+            alt="Logo"
+          />
+        </form>
       </div>
     </div>
   );
